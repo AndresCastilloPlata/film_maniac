@@ -1,6 +1,8 @@
-import 'package:film_maniac/presentation/providers/movies/movies_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:film_maniac/presentation/providers/movies/movies_providers.dart';
+import 'package:film_maniac/presentation/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   static const name = 'home-screen';
@@ -36,16 +38,23 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   Widget build(BuildContext context) {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
 
-    if (nowPlayingMovies.length == 0) return CircularProgressIndicator();
+    // if (nowPlayingMovies.length == 0) return CircularProgressIndicator();
 
-    return ListView.builder(
-      itemCount: nowPlayingMovies.length,
-      itemBuilder: (BuildContext context, int index) {
-        final movie = nowPlayingMovies[index];
-        return ListTile(
-          title: Text(movie.title),
-        );
-      },
+    return Column(
+      children: [
+        const CustomAppbar(),
+        Expanded(
+          child: ListView.builder(
+            itemCount: nowPlayingMovies.length,
+            itemBuilder: (BuildContext context, int index) {
+              final movie = nowPlayingMovies[index];
+              return ListTile(
+                title: Text(movie.title),
+              );
+            },
+          ),
+        )
+      ],
     );
   }
 }
