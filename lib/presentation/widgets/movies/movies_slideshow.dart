@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:film_maniac/domain/entities/movie.dart';
@@ -60,7 +61,7 @@ class _Slide extends StatelessWidget {
                   return const DecoratedBox(
                       decoration: BoxDecoration(color: Colors.black12));
                 }
-                return child;
+                return FadeIn(child: child);
               },
             ),
           ),
