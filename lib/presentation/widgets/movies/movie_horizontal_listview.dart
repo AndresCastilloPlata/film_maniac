@@ -59,7 +59,8 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  return _Slide(movie: widget.movies[index]);
+                  return FadeInRight(
+                      child: _Slide(movie: widget.movies[index]));
                 }),
           ),
         ],
@@ -86,11 +87,9 @@ class _Title extends StatelessWidget {
           const Spacer(),
           if (subTitle != null)
             FilledButton.tonal(
-              child: Text(subTitle!),
               onPressed: () {},
-              style: const ButtonStyle(
-                visualDensity: VisualDensity.compact,
-              ),
+              style: const ButtonStyle(visualDensity: VisualDensity.compact),
+              child: Text(subTitle!),
             ),
         ],
       ),
