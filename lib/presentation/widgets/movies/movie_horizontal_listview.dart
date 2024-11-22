@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:film_maniac/config/helpers/human_formats.dart';
 import 'package:film_maniac/domain/entities/movie.dart';
-import 'package:flutter/material.dart';
 
-class MovieHorizontalListview extends StatelessWidget {
+class MovieHorizontalListview extends StatefulWidget {
   final List<Movie> movies;
   final String? title;
   final String? subTitle;
@@ -18,21 +18,49 @@ class MovieHorizontalListview extends StatelessWidget {
   });
 
   @override
+  State<MovieHorizontalListview> createState() =>
+      _MovieHorizontalListviewState();
+}
+
+class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (widget.loadNextPage == null) return;
+
+      if ((scrollController.position.pixels + 200) >=
+          scrollController.position.maxScrollExtent) {
+        widget.loadNextPage!();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: 360,
       child: Column(
         children: [
-          if (title != null || subTitle != null) _Title(title, subTitle),
+          if (widget.title != null || widget.subTitle != null)
+            _Title(widget.title, widget.subTitle),
           Expanded(
             child: ListView.builder(
-              itemCount: movies.length,
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return _Slide(movie: movies[index]);
-              },
-            ),
+                controller: scrollController,
+                itemCount: widget.movies.length,
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return _Slide(movie: widget.movies[index]);
+                }),
           ),
         ],
       ),
@@ -72,6 +100,7 @@ class _Title extends StatelessWidget {
 
 class _Slide extends StatelessWidget {
   final Movie movie;
+
   const _Slide({required this.movie});
 
   @override
