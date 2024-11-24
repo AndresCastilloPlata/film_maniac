@@ -1,4 +1,3 @@
-import 'package:film_maniac/config/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:film_maniac/config/helpers/human_formats.dart';
