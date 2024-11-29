@@ -1,6 +1,6 @@
 # film_maniac
 
-Este proyecto tiene como finalidad mostrar un catalogo de peliculas y series actuales.
+Este proyecto tiene como finalidad mostrar un catalogo de peliculas.
 
 Puntualmente veremos:
 
@@ -18,6 +18,16 @@ Puntualmente veremos:
     StateNotifierProvider,
     Notifiers,
 6.Mappers
+7.SearchDelegate
+8.Datasources
+9.Repositorios
+10.Búsquedas contra TheMovieDB
+11.Debouncer
+12.Streams
+13.Builders
+14.DRY
+15.Providers
+
 
 a. Copiar el .env.template y renonmbrarlo a .env
 b. Cambiar las variables de entorno (The MovieDB)
