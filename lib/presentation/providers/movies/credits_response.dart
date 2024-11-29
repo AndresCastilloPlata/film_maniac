@@ -47,7 +47,7 @@ class Cast {
     required this.name,
     required this.originalName,
     required this.popularity,
-    required this.profilePath,
+    this.profilePath,
     this.castId,
     this.character,
     required this.creditId,

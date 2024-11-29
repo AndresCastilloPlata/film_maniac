@@ -5,7 +5,7 @@ import 'package:film_maniac/domain/entities/actor.dart';
 import 'package:film_maniac/infrastructure/mappers/actor_mapper.dart';
 import 'package:film_maniac/presentation/providers/movies/credits_response.dart';
 
-class ActorMoviedbDatasource extends ActorsDatasource {
+class ActorMovieDbDatasource extends ActorsDatasource {
   final dio = Dio(
       BaseOptions(baseUrl: 'https://api.themoviedb.org/3', queryParameters: {
     'api_key': Environment.theMovieDbKey,

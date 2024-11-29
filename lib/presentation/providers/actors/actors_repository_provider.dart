@@ -5,5 +5,5 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //Repositorio inmutable, solo lectura
 
 final actorsRepositoryProvider = Provider((ref) {
-  return ActorRepositoryImpl(ActorMoviedbDatasource());
+  return ActorRepositoryImpl(ActorMovieDbDatasource());
 });
