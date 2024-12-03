@@ -1,7 +1,11 @@
-import 'package:film_maniac/presentation/delegates/search_movie_delegate.dart';
-import 'package:film_maniac/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:film_maniac/config/router/app_router.dart';
+
+import 'package:film_maniac/domain/entities/movie.dart';
+import 'package:film_maniac/presentation/delegates/search_movie_delegate.dart';
+import 'package:film_maniac/presentation/providers/providers.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomAppbar extends ConsumerWidget {
   const CustomAppbar({super.key});
@@ -27,10 +31,18 @@ class CustomAppbar extends ConsumerWidget {
                   icon: const Icon(Icons.search_outlined),
                   onPressed: () {
                     final movieRepository = ref.read(movieRepositoryProvider);
-                    showSearch(
+
+                    showSearch<Movie?>(
                       context: context,
                       delegate: SearchMovieDelegate(
                           searchMovies: movieRepository.searchMovies),
+                    ).then(
+                      (movie) {
+                        if (movie == null) return;
+                        if (context.mounted) {
+                          context.push('/movie/${movie.id}');
+                        }
+                      },
                     );
                   },
                 )
