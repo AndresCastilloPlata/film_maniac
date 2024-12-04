@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:film_maniac/config/router/app_router.dart';
 
 import 'package:film_maniac/domain/entities/movie.dart';
 import 'package:film_maniac/presentation/delegates/search_movie_delegate.dart';
