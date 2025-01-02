@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,6 +49,13 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
   }
 }
 
+final isFavoriteProvider = FutureProvider.family.autoDispose(
+  (ref, int movieId) {
+    final localStorageRpository = ref.watch(localStorageRepositoryProvider);
+    return localStorageRpository.isMovieFavorite(movieId);
+  },
+);
+
 class _CustomSliverAppBar extends ConsumerWidget {
   final Movie movie;
 
@@ -54,18 +63,30 @@ class _CustomSliverAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isFavoriteFuture = ref.watch(isFavoriteProvider(movie.id));
     final size = MediaQuery.of(context).size;
+
     return SliverAppBar(
       backgroundColor: Colors.black,
       expandedHeight: size.height * 0.7,
       foregroundColor: Colors.white,
       actions: [
         IconButton(
-          onPressed: () {
-            ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
+          onPressed: () async {
+            await ref
+                .watch(localStorageRepositoryProvider)
+                .toggleFavorite(movie);
+
+            ref.invalidate(isFavoriteProvider(movie.id));
           },
-          icon: const Icon(Icons.favorite_border),
-          // icon: const Icon(Icons.favorite_outlined, color: Colors.red),
+          icon: isFavoriteFuture.when(
+            data: (isFavorite) => isFavorite
+                ? const Icon(Icons.favorite_outlined, color: Colors.red)
+                : const Icon(Icons.favorite_border),
+            loading: () =>
+                const CircularProgressIndicator(strokeWidth: sqrt1_2),
+            error: (error, stackTrace) => throw UnimplementedError(),
+          ),
         )
       ],
       flexibleSpace: FlexibleSpaceBar(
