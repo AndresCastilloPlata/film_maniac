@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:film_maniac/presentation/providers/providers.dart';
 import 'package:film_maniac/domain/entities/movie.dart';
-import 'package:film_maniac/presentation/providers/movies/movie_info_provider.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
   static const name = 'movie-screen';
@@ -48,13 +47,13 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
   }
 }
 
-class _CustomSliverAppBar extends StatelessWidget {
+class _CustomSliverAppBar extends ConsumerWidget {
   final Movie movie;
 
   const _CustomSliverAppBar({required this.movie});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
     return SliverAppBar(
       backgroundColor: Colors.black,
@@ -63,7 +62,7 @@ class _CustomSliverAppBar extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            //Todo: realizar el toggle
+            ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
           },
           icon: const Icon(Icons.favorite_border),
           // icon: const Icon(Icons.favorite_outlined, color: Colors.red),
