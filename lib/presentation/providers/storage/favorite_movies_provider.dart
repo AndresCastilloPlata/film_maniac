@@ -19,7 +19,7 @@ class StorageMoviesNotifier extends StateNotifier<Map<int, Movie>> {
 
   StorageMoviesNotifier({required this.localStorageRepository}) : super({});
 
-  Future<void> loadNextPage() async {
+  Future<List<Movie>> loadNextPage() async {
     final movies = await localStorageRepository.loadMovies(
         offset: page * 10); //Todolimit 20
     page++;
@@ -30,5 +30,7 @@ class StorageMoviesNotifier extends StateNotifier<Map<int, Movie>> {
       tempMoviesMap[movie.id] = movie;
     }
     state = {...state, ...tempMoviesMap};
+
+    return movies;
   }
 }
