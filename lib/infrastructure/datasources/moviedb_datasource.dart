@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:film_maniac/config/constants/environment.dart';
 import 'package:film_maniac/domain/datasources/movies_datasource.dart';
-import 'package:film_maniac/domain/entities/movie.dart';
-import 'package:film_maniac/infrastructure/mappers/movie_mapper.dart';
-import 'package:film_maniac/infrastructure/models/moviedb/movie_details.dart';
-import 'package:film_maniac/infrastructure/models/moviedb/moviedb_response.dart';
+import 'package:film_maniac/infrastructure/mappers/mapper.dart';
+import 'package:film_maniac/infrastructure/models/models.dart';
+import 'package:film_maniac/domain/entities/entities.dart';
 
 class MoviedbDatasource extends MoviesDatasource {
   final dio = Dio(BaseOptions(
@@ -19,8 +18,8 @@ class MoviedbDatasource extends MoviesDatasource {
     final movieDBResponse = MovieDbResponse.fromJson(json);
 
     final List<Movie> movies = movieDBResponse.results
-        .map((moviedb) => MovieMapper.movieDBToEntity(moviedb))
         .where((moviedb) => moviedb.posterPath != 'no-poster')
+        .map((moviedb) => MovieMapper.movieDBToEntity(moviedb))
         .toList();
     return movies;
   }
@@ -88,5 +87,26 @@ class MoviedbDatasource extends MoviesDatasource {
     );
 
     return _jsonToMovies(response.data);
+  }
+
+  @override
+  Future<List<Movie>> getSimilarMovies(int movieId) async {
+    final response = await dio.get('/movie/$movieId/similar');
+    return _jsonToMovies(response.data);
+  }
+
+  @override
+  Future<List<Video>> getYoutubeVideosById(int movieId) async {
+    final response = await dio.get('/movie/$movieId/videos');
+    final moviedbVideosResponse = MoviedbVideosResponse.fromJson(response.data);
+    final videos = <Video>[];
+
+    for (final moviedbVideo in moviedbVideosResponse.results) {
+      if (moviedbVideo.site == 'Youtube') {
+        final video = VideoMapper.moviedbVideoToEntity(moviedbVideo);
+        videos.add(video);
+      }
+    }
+    return videos;
   }
 }
