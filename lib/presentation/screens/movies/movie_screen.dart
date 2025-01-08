@@ -151,10 +151,10 @@ class _MovieDetails extends StatelessWidget {
         _Genres(movie: movie),
         //* Actores
         ActorsByMovie(movieId: movie.id.toString()),
-        // //* Videos
+        //* Videos
         VideosFromMovie(movieId: movie.id),
-        // //* Similares
-        // SimilarMovies(movieId: movie.id),
+        //* Similares
+        SimilarMovies(movieId: movie.id),
 
         const SizedBox(width: 50),
       ],
