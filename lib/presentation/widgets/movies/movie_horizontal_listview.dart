@@ -1,7 +1,6 @@
-import 'package:film_maniac/presentation/views/views.dart';
+import 'package:film_maniac/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:film_maniac/config/helpers/human_formats.dart';
 import 'package:film_maniac/domain/entities/movie.dart';
 import 'package:go_router/go_router.dart';
 
