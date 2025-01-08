@@ -1,8 +1,6 @@
-// import 'dart:math';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:film_maniac/config/helpers/human_formats.dart';
-import 'package:film_maniac/presentation/views/views.dart';
+import 'package:film_maniac/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:film_maniac/presentation/providers/providers.dart';
@@ -93,12 +91,12 @@ class _CustomSliverAppBar extends ConsumerWidget {
       ],
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
-        titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        titlePadding: const EdgeInsets.only(bottom: 0),
         title: _CustomGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            stops: const [0.7, 1.0],
-            color: [Colors.transparent, scaffoldBackgroundColor]),
+            stops: const [0.8, 1.0],
+            colors: [Colors.transparent, scaffoldBackgroundColor]),
         background: Stack(
           children: [
             SizedBox.expand(
@@ -115,25 +113,16 @@ class _CustomSliverAppBar extends ConsumerWidget {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               stops: [0.0, 0.2],
-              color: [
-                Colors.black12,
+              colors: [
+                Colors.black38,
                 Colors.transparent,
               ],
             ),
             const _CustomGradient(
               begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0.8, 1.0],
-              color: [
-                Colors.transparent,
-                Colors.black54,
-              ],
-            ),
-            const _CustomGradient(
-              begin: Alignment.topCenter,
-              stops: [0.0, 0.4],
-              color: [
-                Colors.black12,
+              stops: [0.0, 0.3],
+              colors: [
+                Colors.black26,
                 Colors.transparent,
               ],
             ),
@@ -162,9 +151,10 @@ class _MovieDetails extends StatelessWidget {
         _Genres(movie: movie),
         //* Actores
         ActorsByMovie(movieId: movie.id.toString()),
-        //* Videos
-
-        //* Similares
+        // //* Videos
+        VideosFromMovie(movieId: movie.id),
+        // //* Similares
+        // SimilarMovies(movieId: movie.id),
 
         const SizedBox(width: 50),
       ],
@@ -262,13 +252,13 @@ class _CustomGradient extends StatelessWidget {
   final AlignmentGeometry begin;
   final AlignmentGeometry end;
   final List<double> stops;
-  final List<Color> color;
+  final List<Color> colors;
 
   const _CustomGradient({
     this.begin = Alignment.centerLeft,
     this.end = Alignment.centerRight,
     required this.stops,
-    required this.color,
+    required this.colors,
   });
 
   @override
@@ -280,7 +270,7 @@ class _CustomGradient extends StatelessWidget {
             begin: begin,
             end: end,
             stops: stops,
-            colors: color,
+            colors: colors,
           ),
         ),
       ),
