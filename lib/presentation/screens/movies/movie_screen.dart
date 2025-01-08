@@ -153,10 +153,9 @@ class _MovieDetails extends StatelessWidget {
         ActorsByMovie(movieId: movie.id.toString()),
         //* Videos
         VideosFromMovie(movieId: movie.id),
+        // VideosFromMovie(movieId: movie.id),
         //* Similares
         SimilarMovies(movieId: movie.id),
-
-        const SizedBox(width: 50),
       ],
     );
   }

@@ -53,14 +53,14 @@ class _VideosList extends StatelessWidget {
           ),
         ),
 
-        //* Aunque tengo varios videos, sólo quiero mostrar el primero
+        //*  mostrar solo el primero video
         _YouTubeVideoPlayer(
-            youtubeId: videos.first.youtubeKey, name: videos.first.name)
+            youtubeId: videos.first.youtubeKey, name: videos.first.name),
 
-        //* Si se desean mostrar todos los videos
-        // ...videos.map(
-        //   (video) => _YouTubeVideoPlayer(youtubeId: videos.first.youtubeKey, name: video.name)
-        // ).toList()
+        //* para mostrar todos los videos
+        // ...videos.map((video) => _YouTubeVideoPlayer(
+        //     youtubeId: videos.first.youtubeKey, name: video.name))
+        // .toList()
       ],
     );
   }
