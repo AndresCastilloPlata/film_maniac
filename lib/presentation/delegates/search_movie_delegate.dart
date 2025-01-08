@@ -19,7 +19,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
     required this.searchMovies,
     required this.initialMovies,
   }) : super(
-          searchFieldLabel: 'Buscar pelicula',
+          searchFieldLabel: 'Buscar película',
         );
 
   void clearStreams() {
@@ -62,8 +62,8 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
     );
   }
 
-  @override
-  String get searchFieldLabel => 'Buscar...';
+  // @override
+  // String get searchFieldLabel => 'Buscar...';
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -116,7 +116,10 @@ class _MovieSearchItem extends StatelessWidget {
   final Movie movie;
   final Function onMovieSelected;
 
-  const _MovieSearchItem({required this.movie, required this.onMovieSelected});
+  const _MovieSearchItem({
+    required this.movie,
+    required this.onMovieSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
