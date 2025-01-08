@@ -12,7 +12,8 @@ class HomeView extends ConsumerStatefulWidget {
   HomeViewState createState() => HomeViewState();
 }
 
-class HomeViewState extends ConsumerState<HomeView> {
+class HomeViewState extends ConsumerState<HomeView>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -25,13 +26,12 @@ class HomeViewState extends ConsumerState<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final initialLoading = ref.watch(initialLoadingProvider);
     if (initialLoading) return const FullScreenLoader();
 
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
-
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
-    final popularMovies = ref.watch(popularMoviesProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
     final topRatedMovies = ref.watch(topRatedMoviesProvider);
 
@@ -54,7 +54,7 @@ class HomeViewState extends ConsumerState<HomeView> {
                 MoviesSlideshow(movies: slideShowMovies),
                 MovieHorizontalListview(
                   movies: nowPlayingMovies,
-                  title: 'En Cine',
+                  title: 'En cines',
                   subTitle: today,
                   loadNextPage: () => ref
                       .read(nowPlayingMoviesProvider.notifier)
@@ -62,17 +62,10 @@ class HomeViewState extends ConsumerState<HomeView> {
                 ),
                 MovieHorizontalListview(
                   movies: upcomingMovies,
-                  title: 'Proximamente',
+                  title: 'Próximamente',
                   subTitle: 'En este mes',
                   loadNextPage: () =>
                       ref.read(upcomingMoviesProvider.notifier).loadNextPage(),
-                ),
-                MovieHorizontalListview(
-                  movies: popularMovies,
-                  title: 'Populares',
-                  // subTitle: 'En este mes',
-                  loadNextPage: () =>
-                      ref.read(popularMoviesProvider.notifier).loadNextPage(),
                 ),
                 MovieHorizontalListview(
                   movies: topRatedMovies,
@@ -90,4 +83,7 @@ class HomeViewState extends ConsumerState<HomeView> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
