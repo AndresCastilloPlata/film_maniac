@@ -15,4 +15,9 @@ class HumanFormats {
     final formatterDate = DateFormat('EEEE d', 'es_CO');
     return formatterDate.format(date);
   }
+
+  static String shortDate(DateTime date) {
+    final format = DateFormat.yMMMEd('es');
+    return format.format(date);
+  }
 }
